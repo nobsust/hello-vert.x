@@ -1,13 +1,11 @@
 package com.github.nobsust.vertx.first;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import io.vertx.core.json.JsonObject;
 
 /**
  * Created by Sam on 1/28/2017.
  */
 public class Whisky {
-
-    private static final AtomicInteger COUNTER = new AtomicInteger();
 
     private final int id;
 
@@ -16,13 +14,25 @@ public class Whisky {
     private String origin;
 
     public Whisky(String name, String origin) {
-        this.id = COUNTER.getAndIncrement();
         this.name = name;
         this.origin = origin;
+        this.id = -1;
+    }
+
+    public Whisky(JsonObject json) {
+        this.name = json.getString("NAME");
+        this.origin = json.getString("ORIGIN");
+        this.id = json.getInteger("ID");
     }
 
     public Whisky() {
-        this.id = COUNTER.getAndIncrement();
+        this.id = -1;
+    }
+
+    public Whisky(int id, String name, String origin) {
+        this.id = id;
+        this.name = name;
+        this.origin = origin;
     }
 
     public String getName() {
